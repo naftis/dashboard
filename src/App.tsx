@@ -1,26 +1,46 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from "react";
+import "./App.css";
+import * as weather from "./services/weather";
+import { weatherIcons } from "./services/forecast";
 
 const App: React.FC = () => {
+  const [time, setTime] = useState("");
+  const [icon, setIcon] = useState("");
+  const [temperature, setTemperature] = useState("");
+
+  function getTime() {
+    const currentTime = `${/^\d\d?:\d\d/.exec(new Date().toTimeString())}`;
+    setTime(currentTime);
+  }
+
+  useEffect(() => {
+    getTime();
+    const interval = setInterval(getTime, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
+  function getWeather() {
+    weather.weather.getByCityName("Tampere").then(x => {
+      const temp = x.main.temp.toFixed(1);
+      setTemperature(temp);
+      setIcon((weatherIcons as any)[x.weather[0].icon]);
+    });
+  }
+
+  useEffect(() => {
+    getWeather();
+    const interval = setInterval(getWeather, 1000 * 60 * 10);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div id="time">{time}</div>
+      <div id="weather">
+        {icon} {temperature}°C
+      </div>
     </div>
   );
-}
+};
 
 export default App;
