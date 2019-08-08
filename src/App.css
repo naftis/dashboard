@@ -2,20 +2,27 @@ body,
 html {
   color: #fff;
   background: black;
-  font-size: 2rem;
 }
 
 #time {
-  font-size: 3rem;
+  font-size: 7rem;
+  font-weight: bold;
 }
 
 .App {
+  margin-top: 8rem;
   height: 100vh;
   display: flex;
   justify-content: space-around;
-  align-items: center;
+}
+
+#icon {
+  font-size: 9rem;
 }
 
 #weather {
-  font-size: 2.5rem;
+  font-size: 7rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }

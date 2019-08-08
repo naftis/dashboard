@@ -37,7 +37,8 @@ const App: React.FC = () => {
     <div className="App">
       <div id="time">{time}</div>
       <div id="weather">
-        {icon} {temperature}°C
+        <div>{temperature}°C</div>
+        <div id="icon">{icon}</div>
       </div>
     </div>
   );
