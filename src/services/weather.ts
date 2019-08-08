@@ -1,7 +1,7 @@
 import { IForecast, IWeather } from "./types";
 import * as queryString from "query-string";
 
-const API_BASE_URL = "http://api.openweathermap.org/data/2.5/";
+const API_BASE_URL = "https://api.openweathermap.org/data/2.5/";
 
 const defaultOptions = {
   appid: "2b0ad50b08d453642b2296fd8d877fee",
