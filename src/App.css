@@ -1,3 +1,9 @@
+html,
+#root,
+body,
+.App {
+  height: 100%;
+}
 .App {
   text-align: center;
 }
@@ -35,4 +41,25 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+#weather {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: #0073c9;
+  color: #fff;
+  width: 10rem;
+  height: 8rem;
+  font-weight: bold;
+  font-size: 2rem;
+}
+
+#icon {
+  font-size: 4rem;
+  height: 3rem;
 }
