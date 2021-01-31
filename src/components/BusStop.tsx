@@ -91,7 +91,7 @@ export const BusStop = () => {
   });
 
   const stop = data?.stops[selectedStop];
-  const stoptimes = stop.stoptimesWithoutPatterns;
+  const stoptimes = stop?.stoptimesWithoutPatterns;
 
   return (
     <>
