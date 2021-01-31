@@ -63,3 +63,19 @@ body,
   font-size: 4rem;
   height: 3rem;
 }
+
+#time {
+  position: absolute;
+  background: #fff;
+  color: #0073c9;
+  font-weight: bold;
+  font-size: 3rem;
+  top: 0;
+  right: 0;
+  height: 10rem;
+  width: 15rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom-left-radius: 2rem;
+}
