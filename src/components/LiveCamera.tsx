@@ -8,8 +8,8 @@ export const LiveCamera: React.FC<{ goBack: () => void }> = ({ goBack }) => {
     <>
       <div
         style={{
-          height: "100vh",
-          width: "100vw",
+          height: "20vh",
+          width: "20vw",
           position: "absolute",
           left: 0,
           top: 0,
