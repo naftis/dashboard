@@ -37,6 +37,7 @@
   font-size: calc(26px + 2vmin);
   width: 100%;
   padding: 1.5rem;
+  border-spacing: 0;
 }
 
 .bus th,
@@ -58,8 +59,8 @@
 .bus td:last-child,
 .bus th:last-child {
   text-align: right;
-  padding-right: 1rem;
   padding: 0.5rem 0;
+  padding-right: 1rem;
 }
 
 .bus tr:not(:last-child) td {

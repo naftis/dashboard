@@ -3,8 +3,16 @@ import { useEffect, useState } from "react";
 import { weatherIcons } from "../services/forecast";
 import { formatTime, parseDaySeconds } from "../services/time";
 import { weather } from "../services/weather";
-import { useDoubleTap } from "use-double-tap";
 import "./BusStop.css";
+
+const STOPS = {
+  "tampere:4507": {
+    background: "none",
+  },
+  "tampere:4511": {
+    background: "rgba(6,70,107,0.29)",
+  },
+};
 
 const BUS_SCHEDULES = gql`
   query GetStops($stopIds: [String], $numberOfDepartures: Int!) {
@@ -50,11 +58,6 @@ export const BusStop = () => {
   const [time, setTime] = useState("");
   const [icon, setIcon] = useState("");
   const [temperature, setTemperature] = useState("");
-  const [selectedStop, setSelectedStop] = useState(0);
-
-  const bind = useDoubleTap(() => {
-    setSelectedStop(selectedStop === 0 ? 1 : 0);
-  });
 
   function getWeather() {
     weather.getByCityName("Tampere").then((x) => {
@@ -84,14 +87,19 @@ export const BusStop = () => {
 
   const { data } = useQuery(BUS_SCHEDULES, {
     variables: {
-      stopIds: ["tampere:4507", "tampere:4511"],
+      stopIds: Object.keys(STOPS),
       numberOfDepartures: 10,
     },
     pollInterval: 60 * 1000,
   });
 
-  const stop = data?.stops[selectedStop];
-  const stoptimes = stop?.stoptimesWithoutPatterns;
+  const stoptimes = data?.stops
+    ?.flatMap((stop: any) => stop.stoptimesWithoutPatterns)
+    .sort(
+      (a: any, b: any) =>
+        new Date(a.realtimeDeparture + a.serviceDay * 1000).getTime() -
+        new Date(b.realtimeDeparture + b.serviceDay * 1000).getTime()
+    );
 
   return (
     <>
@@ -106,9 +114,6 @@ export const BusStop = () => {
             {temperature}°C
           </div>
         </div>
-        <div className="stop" {...bind}>
-          {stop?.name}
-        </div>
         <div className="time">{time}</div>
       </header>
       <table className="bus">
@@ -120,9 +125,15 @@ export const BusStop = () => {
         </thead>
         <tbody>
           {stoptimes?.map((stoptime: any, i: number) => (
-            <tr key={i}>
+            <tr
+              key={i}
+              style={{
+                background:
+                  STOPS[stoptime.stop.gtfsId as keyof typeof STOPS]?.background,
+              }}
+            >
               <td>{stoptime.trip.route.shortName}</td>
-              <td>{formatTime(parseDaySeconds(stoptime.scheduledArrival))}</td>
+              <td>{formatTime(parseDaySeconds(stoptime.realtimeDeparture))}</td>
             </tr>
           ))}
         </tbody>
