@@ -82,7 +82,7 @@ export const BusStop = () => {
     return () => clearInterval(timeout);
   }, []);
 
-  const { loading, error, data } = useQuery(BUS_SCHEDULES, {
+  const { data } = useQuery(BUS_SCHEDULES, {
     variables: {
       stopIds: ["tampere:4507", "tampere:4511"],
       numberOfDepartures: 10,
@@ -107,7 +107,7 @@ export const BusStop = () => {
           </div>
         </div>
         <div className="stop" {...bind}>
-          {stop.name}
+          {stop?.name}
         </div>
         <div className="time">{time}</div>
       </header>
