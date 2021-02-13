@@ -2,9 +2,6 @@ export type DaySeconds = number;
 export type Hours = number;
 export type Minutes = number;
 export type Seconds = number;
-export type Milliseconds = number;
-export type EpochMilliseconds = Milliseconds;
-export type EpochSecondsLocal = Milliseconds;
 
 export interface ITimeOfDay {
   hours: Hours;
@@ -31,5 +28,5 @@ export const formatTime = (
   `${doubleDigit(timeOfDay.hours)}:${doubleDigit(timeOfDay.minutes)}${
     options.showSeconds ? `:${doubleDigit(timeOfDay.seconds)}` : ""
   }`
-    .replace("25", "01")
-    .replace("24", "00");
+    .replace(/^25/, "01")
+    .replace(/^24/, "00");
