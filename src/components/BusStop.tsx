@@ -6,7 +6,7 @@ import { weather } from "../services/weather";
 import "./BusStop.css";
 
 const STOPS = {
-  "tampere:4507": {
+  "tampere:0819": {
     background: "none",
   },
   "tampere:4511": {
